@@ -1,0 +1,38 @@
+body {
+    background: whitesmoke;
+}
+
+#board {
+    display: grid;
+    margin: auto;
+    justify-content: center;
+    background: antiquewhite;
+    grid-template-columns: 5px 1fr 5px 1fr 5px 1fr 5px;
+    grid-template-rows: 1fr 10fr 1fr 10fr 1fr 10fr 1fr;
+    /* grid-column-gap: 1vmin;
+    grid-row-gap: 1vmin; */
+}
+
+.dot {
+    height: 5px;
+    background: black;
+}
+
+.vedge, .hedge {
+    background-color: grey;
+}
+
+.hedge:hover {
+    background: cornflowerblue;
+}
+
+.vedge:hover {
+    background: tomato;
+}
+
+@media only screen and (min-width: 300px) { /* mobile */
+    #board {
+        background: silver;
+        width: 300px;
+    }
+
