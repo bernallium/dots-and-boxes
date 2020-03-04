@@ -11,12 +11,12 @@
 /*----- constants -----*/
 
 const Players = {
-    '1': {
+    '1': { // Player 1
         colorPrimary: '#4881ea',
         colorSecondary: '#76a0ef',
         score: 0
     },
-    '-1': {
+    '-1': { // Player 2
         colorPrimary: '#ff5233',
         colorSecondary: '#ff7d66',
         score: 0
@@ -27,12 +27,11 @@ const numOfRows = 3; // Rows of boxes
 const numOfCols = 3; // Rows of columns
 
 // Box class used to create boxes objects to be layed out in rows and columns on the board
-// A box is composed of four edge objects
+// A box is composed of four edge objects – 2 horizontal edges ('hedge') and 2 vertical edges ('vedge')
 // Note: When creating boxes, check if they share an edge with a box directly above and to the left on the board
 class Box {
     constructor(boxId, left, top) {
         this.boxId = boxId;
-        this.isComplete = false; // TODO Maybe delete this?
         this.completedBy = undefined;
         this.squareEl = undefined;
 
@@ -51,12 +50,17 @@ class Box {
 
     // Checks and sets the completion state of the box
     checkCompletion() {
-        if (this.left.clickedBy === undefined || this.top.clickedBy === undefined || 
-            this.right.clickedBy === undefined || this.bottom.clickedBy === undefined) {
-            return false; // Returns false if any of the edges have not been clicked;
+        if (this.left.clickedBy != undefined && this.top.clickedBy != undefined && 
+            this.right.clickedBy != undefined && this.bottom.clickedBy != undefined) {
+            return true; // Returns true only if all the edges have been clicked
         } else {
-            if (this.completedBy === undefined) this.completedBy = turn; // CompletedBy state can only be set once
-            return true;
+            return false;
+        }
+    }
+
+    setCompletedBy(completedBy) {
+        if (this.completedBy === undefined) { // CompletedBy state can only be set once
+            this.completedBy = completedBy;
         }
     }
 }
@@ -85,12 +89,17 @@ let turn;
 /*----- Cached element references -----*/
 
 let boardEl = document.getElementById('board');
+let player1ScoreEl = document.getElementById('player-1-score');
+let player2ScoreEl = document.getElementById('player-2-score');
 let resetButtonEl = document.querySelector('button');
 
 /*----- Event listeners -----*/
 
 // Listen for any click on the board and use event delegation to understand which component was clicked
 boardEl.addEventListener('click', handleBoardClick);
+resetButtonEl.addEventListener('click', function() {
+    location.reload();
+});
 
 /*----- Functions -----*/
 
@@ -115,11 +124,13 @@ function handleBoardClick(evt) {
 
     // If the element was an edge element (has the hedge or vedge class), 
     // get a reference to the first box object that contains it
-    let clickedBox;
+    // If it wasn't an edge element, return early
     if (targetEl.classList.contains('vedge') || targetEl.classList.contains('hedge')) {
         const boxRowId = getRowIdAsNum(targetEl.id);
         const boxColId = getColIdAsNum(targetEl.id);
         clickedBox = board[boxRowId][boxColId];
+    } else {
+        return;
     }
     
     // Get a reference to the edge object that holds clicked edge element
@@ -136,18 +147,45 @@ function handleBoardClick(evt) {
 
     // Set the clicked state of the edge object
     clickedEdge.setClickedBy(turn);
-    // Check the completion state of the box object
-    clickedBox.checkCompletion();
+
+    // For every box, set which player completed it
+    setAllBoxCompletedByStates();
+    
+    // Change which player's turn it is
+    turn *= -1;
 
     // Once alll the game state has been updated, render the changes
-    render(clickedBox, clickedEdge);
-    turn *= -1;
+    render(clickedEdge);
+}
+
+// Checks all boxes for completion state and stores which player completed each respective box
+function setAllBoxCompletedByStates() {
+    let playerAScore = 0;
+    let playerBScore = 0;
+    for (let rowId = 0; rowId < numOfRows; rowId++) {
+        for (let colId = 0; colId < numOfCols; colId++) {
+            let box = board[rowId][colId];
+            if (box.checkCompletion()) {
+                box.setCompletedBy(turn);
+                if (box.completedBy === 1) {
+                    playerAScore++;
+                } else if (box.completedBy === -1) {
+                    playerBScore++;
+                }
+            }
+        }
+    }   
+    Players[1].score = playerAScore;
+    Players[-1].score = playerBScore;
+    console.log('Player A: ' + Players[1].score);
+    console.log('Player B: ' + Players[-1].score);
 }
 
 // Call render after every turn once game state has all been updated
-function render(clickedBox, clickedEdge) {
+function render(clickedEdge) {
     renderEdgeColor(clickedEdge);
     renderBoxColor();
+    renderPlayerScores();
     console.log(board);
 }
 
@@ -168,15 +206,22 @@ function renderBoxColor() {
     }
 }
 
+function renderPlayerScores() {
+    player1ScoreEl.innerText = `${Players[1].score}`;
+    player2ScoreEl.innerText = `${Players[-1].score}`;
+}
+
+// Initalise the board elements
 function intitBoardEl() {
     for (let rowId = 0; rowId < numOfRows; rowId++) {
         createHedgeRow(rowId);
         createVedgeRow(rowId);
         // Add another HedgeRow for the last row of boxes
-        if (rowId === numOfRows - 1) createHedgeRow(rowId + 1);
+        if (rowId + 1 === numOfRows) createHedgeRow(rowId + 1);
     }
 }
 
+// Initialize a single row of horizontal edges
 function createHedgeRow(rowId) {
     for (let colId = 0; colId < numOfCols; colId++) {
         let dotEl = document.createElement('div');
@@ -199,6 +244,7 @@ function createHedgeRow(rowId) {
     boardEl.append(dotEl);
 }
 
+// Initalize a single row of vertical edges
 function createVedgeRow(rowId) {
     for (let colId = 0; colId < numOfCols; colId++) {
         let vedgeEl = document.createElement('div');
@@ -223,8 +269,8 @@ function createVedgeRow(rowId) {
     board[rowId][numOfCols - 1].right.edgeEl = vedgeEl; // right.edgeEl
 }
 
-// If there exists a box to the left of the current box, 
-// return a reference to the right edge of that box
+// If there exists a box to the left of the current box,
+// return a reference to the right edge object of that box
 function checkLeft(row, colId) {
     if (row[colId - 1] != undefined) { // Do this only if a box on the left actually exists 
         return row[colId - 1].right;
@@ -232,7 +278,7 @@ function checkLeft(row, colId) {
 }
 
 // If there exists a box above the current box, 
-// return a reference to the bottom edge of that Box
+// return a reference to the bottom edge object of that box
 function checkAbove(rowId, colId) {
     if (board[rowId - 1] != undefined) { // Do this only if the row above actually exists
         return board[rowId - 1][colId].bottom;
@@ -264,7 +310,6 @@ init();
 
 // –––––––––– TEST STUFF HERE ––––––––––
 
-// console.log('board.length: ' + board.length);
 console.log(board);
 // console.log(board[0][0].right === board[0][1].left);
 // console.log(board[0][0].bottom === board[1][0].top);

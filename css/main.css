@@ -9,10 +9,17 @@ h1 {
     color: darkslategray;
 }
 
-h2 {
+#player-1-score {
+    color: #4881ea;
+}
+
+#player-2-score {
+    color:#ff5233;
+}
+
+#player-1-score, #player-2-score {
     margin-left: 80px;
     margin-right: 80px;
-    color: darkslategray;
 }
 
 #board {
@@ -43,12 +50,11 @@ button:focus {
 .dot {
     height: 5px;
     background: #313639;
-    
 }
 
 .vedge, .hedge {
     background-color: grey;
-    border: 0.75px solid rgb(16, 16, 16);
+    border: 0.75px solid rgb(24, 24, 24);
 }
 
 .vedge:hover, .hedge:hover {
