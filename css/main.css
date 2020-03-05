@@ -1,12 +1,45 @@
 body {
     background: whitesmoke;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Courier Prime', 'Courier New', Courier, monospace;
 }
 
-h1 {
-    font-family: Arial, Helvetica, sans-serif;
+header {
     text-align: center;
-    color: darkslategray;
+    margin: 10px;
+    color: darkslategrey;
+}
+
+#board {
+    border-radius: 4px;
+    background: lightgrey;
+    border-right: 2px solid rgb(180, 180, 180);
+    border-bottom: 2px solid rgb(170, 170, 170);
+    width: 200px;
+    padding: 4px;
+    display: grid;
+    margin: auto;
+    justify-content: center;
+    grid-template-columns: 5px 1fr 5px 1fr 5px 1fr 5px;
+    grid-template-rows: 1fr 10fr 1fr 10fr 1fr 10fr 1fr;
+}
+
+.score-board {
+    display: block;
+    color: darkslategrey;
+    margin-bottom: 10px;
+}
+
+#player-1-score + div, #player-2-score + div {
+    font-size: x-small;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+#player-1-score, #player-2-score {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 #player-1-score {
@@ -17,30 +50,15 @@ h1 {
     color:#ff5233;
 }
 
-#player-1-score, #player-2-score {
-    margin-left: 80px;
-    margin-right: 80px;
-}
 
-#board {
-    display: grid;
-    margin: auto;
-    justify-content: center;
-    background: antiquewhite;
-    grid-template-columns: 5px 1fr 5px 1fr 5px 1fr 5px;
-    grid-template-rows: 1fr 10fr 1fr 10fr 1fr 10fr 1fr;
-        /* grid-column-gap: 1vmin;
-        grid-row-gap: 1vmin; */
-}
 
 button {
     font-size: 8px;
-    padding: 10px;
+    padding: 5px;
     display:block;
-    border-radius: 8%;
+    border-radius: 4px;
     background-color: rgb(242, 87, 70);
     color: white;
-    button:focus {outline:0;}
 }
 
 button:focus {
@@ -49,16 +67,27 @@ button:focus {
 
 .dot {
     height: 5px;
-    background: #313639;
+    background: darkslategrey;
+    border-radius: 100%;
+    z-index: 2;
 }
 
-.vedge, .hedge {
-    background-color: grey;
-    border: 0.75px solid rgb(24, 24, 24);
+.square {
+    margin: 2px;
+    background-color: rgb(200, 200, 200);
+    border-radius: 4px;
+}
+
+.vedge {
+    margin: -2px 0.63px -2px 0.75px;
+}
+
+.hedge {
+    margin: 0.75px -2px 0.63px -2px;
 }
 
 .vedge:hover, .hedge:hover {
-    background: darkgray;
+    background: darkgrey;
 }
 
 div {
@@ -68,8 +97,8 @@ div {
 }
 
 @media only screen and (min-width: 300px) { /* mobile */
-    #board {
+    /* #board {
         background: lightgrey;
-        width: 300px;
-    }
-
+        width: 200px;
+    } */
+}

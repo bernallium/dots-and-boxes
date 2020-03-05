@@ -92,6 +92,7 @@ let boardEl = document.getElementById('board');
 let player1ScoreEl = document.getElementById('player-1-score');
 let player2ScoreEl = document.getElementById('player-2-score');
 let resetButtonEl = document.querySelector('button');
+let hedgeEl = document.getElementsByClassName('hedge');
 
 /*----- Event listeners -----*/
 
@@ -101,9 +102,12 @@ resetButtonEl.addEventListener('click', function() {
     location.reload();
 });
 
+
+
 /*----- Functions -----*/
 
 function init() {
+    hedgeEl.stl
     turn = 1;
 
     // Build board (2D array) of box objects
@@ -148,17 +152,27 @@ function handleBoardClick(evt) {
     // Set the clicked state of the edge object
     clickedEdge.setClickedBy(turn);
 
-    // For every box, set which player completed it
+    // The score before querying all the boxes
+    let scoreSumBefore = Players[1].score + Players[-1].score;
+
+    // For every box, set which player completed it and update the scores
     setAllBoxCompletedByStates();
+
+    // The score after querying all the boxes
+    let scoreSumAfter = Players[1].score + Players[-1].score;
     
-    // Change which player's turn it is
-    turn *= -1;
+    // Change which player's turn it is only if the scores don't change (ie. Nobody completed a box)
+    if (scoreSumBefore === scoreSumAfter) {
+        turn *= -1;
+    }
 
     // Once alll the game state has been updated, render the changes
     render(clickedEdge);
 }
 
-// Checks all boxes for completion state and stores which player completed each respective box
+// Checks all boxes for completion state,
+// stores which player completed each respective box and
+// updates the scores
 function setAllBoxCompletedByStates() {
     let playerAScore = 0;
     let playerBScore = 0;
@@ -174,7 +188,7 @@ function setAllBoxCompletedByStates() {
                 }
             }
         }
-    }   
+    }
     Players[1].score = playerAScore;
     Players[-1].score = playerBScore;
     console.log('Player A: ' + Players[1].score);
