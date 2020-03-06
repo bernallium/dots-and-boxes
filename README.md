@@ -1,10 +1,13 @@
-# dots-and-boxes
+<img src="images/dots-and-boxes-screenshot.png" width="300" height="300">
+
+# Dots & Boxes
 
 ## Summary
 
-A two player where players take turns joining two horizontally or vertically adjacent dots with a line. The player that completes the fourth side of a box gets a point and takes another turn. When all the boxes are complete, the game ends and the player who has the most boxes wins the game.
+A two player game where players take turns joining two horizontally or vertically adjacent dots with a line. The player that completes the fourth side of a box gets a point and takes another turn. When all the boxes are complete, the game ends and the player who has the most boxes wins the game.
 
 [Click here to play!](https://bernallium.github.io/dots-and-boxes/)
+
 
 ## Technologies
 * Javascript
