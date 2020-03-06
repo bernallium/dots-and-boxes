@@ -97,6 +97,13 @@ h1 {
     margin-top: 0px;
 }
 
+#vs {
+    font-size: 40px;
+    font-weight: 600;
+    color: darkslategrey;
+}
+
+/* NEW GAME button */
 button {
     display: block;
     background-color: rgb(242, 87, 70);
@@ -126,7 +133,6 @@ button:hover {
 }
 
 .dot {
-    /* height: 15px; 5px REMOVE? */
     border: 10px solid darkslategrey;
     background: darkslategrey;
     border-radius: 100%;
@@ -134,9 +140,9 @@ button:hover {
 }
 
 .square {
-    margin: 3%;/* 2px; */
+    margin: 5%;
     background-color: rgb(200, 200, 200);
-    border-radius: 10%; /* 4px */
+    border-radius: 10%;
     transition: all 0.2s ease 0.1s;
 }
 
@@ -147,11 +153,12 @@ button:hover {
 }
 
 .hedge {
-    margin: 4.5px -9px; /* 0.75px -2px 0.63px -2px; */
+    
+    margin: 2.5px -9px;
 }
 
 .vedge {
-    margin: -9px 4.5px; /*-2px 0.63px -2px 0.75px; */
+    margin: -9px 2.5px;
 }
 
 .hedge:hover, 
@@ -166,11 +173,10 @@ div {
     justify-content: center;
 }
 
-@media only screen and (min-width: 300px) { /* mobile */
-    /* #board {
-        background: lightgrey;
-        width: 200px;
-    } */
+@media only screen and (max-width: 850px) { /* mobile */
+    body {
+        flex-direction: column;
+    }
 }
 
 /* The Modal (background) */
@@ -195,7 +201,7 @@ div {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin: 25% auto; /* 15% from the top and centered */
+    margin: 25% auto;
     padding: px 0 10px 10px;
     width: 40%;
 
