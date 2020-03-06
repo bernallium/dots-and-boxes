@@ -232,6 +232,7 @@ window.onclick = function(event) {
   }
 }
 
+// When the user clicks an edge, update the game state and render the changes
 function handleBoardClick(evt) {
     // Get which element was clicked
     const targetEl = evt.target;
