@@ -1,7 +1,7 @@
 // DOTS & BOXES
 // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 //  The game board is composed of rows and columns of boxes.
-//  Boxes are composed of four edges. Adjacent boxes share a reference to same edge.
+//  Boxes are composed of four edges. Adjacent boxes share a reference to the same edge.
 //  Two players take turns clicking box edges. 
 //  The player who clicks the fourth edge surrounding any given box completes that box.
 //  When a player completes a box, that player gets another turn to click another edge.
@@ -11,20 +11,23 @@
 /*----- constants -----*/
 
 const Players = {
-    '1': { // Player 1
-        colorPrimary: '#4881ea',
-        colorSecondary: '#76a0ef',
+    '1': {
+        name: 'Player 1',
+        colorPrimary: '#ff5233', // For edge colors and player scores
+        colorSecondary: '#ff7d66', // For box colors
         score: 0
     },
-    '-1': { // Player 2
-        colorPrimary: '#ff5233',
-        colorSecondary: '#ff7d66',
+    '-1': {
+        name: 'Player 2',
+        colorPrimary: '#4881ea',
+        colorSecondary: '#76a0ef',
         score: 0
     }
 };
 
-const numOfRows = 3; // Rows of boxes
-const numOfCols = 3; // Rows of columns
+// Default number of rows and columns for game board (3 x 3 grid)
+let numOfRows = 3;
+let numOfCols = 3;
 
 // Box class used to create boxes objects to be layed out in rows and columns on the board
 // A box is composed of four edge objects – 2 horizontal edges ('hedge') and 2 vertical edges ('vedge')
@@ -82,35 +85,47 @@ class Edge {
 
 /*----- Game state -----*/
 
-const board = [];
-let winner;
-let turn;
+let board = [];
+let turn = 1;
 
 /*----- Cached element references -----*/
 
 let boardEl = document.getElementById('board');
 let player1ScoreEl = document.getElementById('player-1-score');
 let player2ScoreEl = document.getElementById('player-2-score');
+let rowSizeSelectEl = document.getElementById('row-select');
+let colSizeSelectEl = document.getElementById('col-select');
 let resetButtonEl = document.querySelector('button');
-let hedgeEl = document.getElementsByClassName('hedge');
+
+// Modal references
+let modal = document.getElementById('myModal');
+let span = document.getElementsByClassName("close")[0];
+let modalPEl = document.querySelector('p');
 
 /*----- Event listeners -----*/
 
 // Listen for any click on the board and use event delegation to understand which component was clicked
 boardEl.addEventListener('click', handleBoardClick);
+
+// Click listener for the reset button
 resetButtonEl.addEventListener('click', function() {
-    location.reload();
+    // Clear the game state before calling init() to avoid pushing duplicate elements on to the board
+    clearState();
+
+    // Call init() after clearning the game's state
+    init();
+    render();
 });
-
-
 
 /*----- Functions -----*/
 
 function init() {
-    hedgeEl.stl
-    turn = 1;
+    renderScores();
+    // TODO Remove this
+  
+    changeBoardDimensions();
 
-    // Build board (2D array) of box objects
+    // Build board of box objects (2D array containing rows of box objects)
     let boxId = 0;
     for (let rowId = 0; rowId < numOfRows; rowId++) {
         let row = [];
@@ -119,7 +134,84 @@ function init() {
         }
         board.push(row);
     }
+
     intitBoardEl();
+}
+
+function clearState() {
+    // Clear the scores
+    Players[1].score = 0;
+    Players[-1].score = 0;
+
+    // Reset who's turn it is
+    turn = 1;
+
+    // Clear the board array
+    while(board.length > 0) {
+        board.pop();
+    }
+
+    // Remove children from board element
+    while (boardEl.firstChild) {
+        boardEl.removeChild(boardEl.firstChild);
+    }
+    console.log('Game state cleared');
+}
+
+
+
+function isGameComplete() {
+    if (numOfRows * numOfCols === Players[1].score + Players[-1].score) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function renderGameComplete() {
+    if (numOfRows * numOfCols === Players[1].score + Players[-1].score) {
+        let gameWinnerString;
+        if (Players[1].score === Players[-1].score) {
+            gameWinnerString = "It's a tie!"
+        } else if (Players[1].score > Players[-1].score) {
+            gameWinnerString = `${Players[1].name} wins!`;
+        } else {
+            gameWinnerString = `${Players[-1].name} wins!`;
+        }
+        // Set the game completion message and reveal the modal
+        modalPEl.innerText = gameWinnerString;
+        modal.style.display = "block";
+    } else {
+        modal.style.display = "none";
+    }
+}
+
+function changeBoardDimensions() {
+    // Update the state variables
+    numOfRows = parseInt(rowSizeSelectEl.options[rowSizeSelectEl.selectedIndex].value);
+    numOfCols = parseInt(colSizeSelectEl.options[colSizeSelectEl.selectedIndex].value);
+    console.log(numOfRows);
+    console.log(numOfCols);
+
+    // Change the board element
+    boardEl.style.gridTemplateRows = `repeat(${numOfRows}, 1fr 10fr) 1fr`;
+    boardEl.style.gridTemplateColumns = `repeat(${numOfCols}, 1fr 10fr) 1fr`;
+
+    // Each box should be 140px
+    // boardEl.style.width = `${numOfCols * 140}px`;
+    // boardEl.style.height = `${numOfRows * 140}px`;
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 }
 
 function handleBoardClick(evt) {
@@ -127,7 +219,7 @@ function handleBoardClick(evt) {
     const targetEl = evt.target;
 
     // If the element was an edge element (has the hedge or vedge class), 
-    // get a reference to the first box object that contains it
+    // get a reference to the first box object that holds it
     // If it wasn't an edge element, return early
     if (targetEl.classList.contains('vedge') || targetEl.classList.contains('hedge')) {
         const boxRowId = getRowIdAsNum(targetEl.id);
@@ -149,8 +241,13 @@ function handleBoardClick(evt) {
         clickedEdge = clickedBox.left;
     }
 
-    // Set the clicked state of the edge object
-    clickedEdge.setClickedBy(turn);
+    // If the edge element was already clicked, return early;
+    // else set the clicked state of the edge object
+    if (clickedEdge.clickedBy != undefined) {
+        return;
+    } else {
+        clickedEdge.setClickedBy(turn);
+    }
 
     // The score before querying all the boxes
     let scoreSumBefore = Players[1].score + Players[-1].score;
@@ -166,7 +263,7 @@ function handleBoardClick(evt) {
         turn *= -1;
     }
 
-    // Once alll the game state has been updated, render the changes
+    // Once all the game state has been updated, render the changes
     render(clickedEdge);
 }
 
@@ -174,38 +271,40 @@ function handleBoardClick(evt) {
 // stores which player completed each respective box and
 // updates the scores
 function setAllBoxCompletedByStates() {
-    let playerAScore = 0;
-    let playerBScore = 0;
+    let player1Score = 0;
+    let player2Score = 0;
     for (let rowId = 0; rowId < numOfRows; rowId++) {
         for (let colId = 0; colId < numOfCols; colId++) {
             let box = board[rowId][colId];
             if (box.checkCompletion()) {
                 box.setCompletedBy(turn);
                 if (box.completedBy === 1) {
-                    playerAScore++;
+                    player1Score++;
                 } else if (box.completedBy === -1) {
-                    playerBScore++;
+                    player2Score++;
                 }
             }
         }
     }
-    Players[1].score = playerAScore;
-    Players[-1].score = playerBScore;
-    console.log('Player A: ' + Players[1].score);
-    console.log('Player B: ' + Players[-1].score);
+    Players[1].score = player1Score;
+    Players[-1].score = player2Score;
 }
 
-// Call render after every turn once game state has all been updated
+// Call render after every turn (ie. after a user clicks an edge that has not been clicked) once game state has all been updated
 function render(clickedEdge) {
     renderEdgeColor(clickedEdge);
     renderBoxColor();
-    renderPlayerScores();
+    renderScores();
+    renderGameComplete();
     console.log(board);
+    console.log('Full render');
 }
 
 // Renders the edge colour according to which player clicked it
 function renderEdgeColor(edgeObj) {
-    edgeObj.edgeEl.style.backgroundColor = Players[edgeObj.clickedBy].colorPrimary;
+    if (edgeObj != undefined) {
+        edgeObj.edgeEl.style.backgroundColor = Players[edgeObj.clickedBy].colorPrimary;
+    }
 }
 
 // Renders the box colour upon box completion (all four edges have been clicked)
@@ -220,12 +319,19 @@ function renderBoxColor() {
     }
 }
 
-function renderPlayerScores() {
+function renderScores() {
     player1ScoreEl.innerText = `${Players[1].score}`;
     player2ScoreEl.innerText = `${Players[-1].score}`;
+    if (turn === 1) {
+        player1ScoreEl.parentNode.classList.add("active");
+        player2ScoreEl.parentNode.classList.remove("active");
+    } else if (turn === -1) {
+        player1ScoreEl.parentNode.classList.remove("active");
+        player2ScoreEl.parentNode.classList.add("active");
+    }
 }
 
-// Initalise the board elements
+// Initalise the board elements (squares, hedges and vedges)
 function intitBoardEl() {
     for (let rowId = 0; rowId < numOfRows; rowId++) {
         createHedgeRow(rowId);
@@ -319,11 +425,6 @@ function getColIdAsNum(edgeId) {
     }
  }
 
+
+ // Run the game
 init();
-
-
-// –––––––––– TEST STUFF HERE ––––––––––
-
-console.log(board);
-// console.log(board[0][0].right === board[0][1].left);
-// console.log(board[0][0].bottom === board[1][0].top);
