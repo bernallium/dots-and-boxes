@@ -86,8 +86,8 @@ class Edge {
 let board = [];
 
 // Default number of rows and columns for game board (3 x 3 grid)
-let numOfRows = 3;
-let numOfCols = 3;
+let numOfRows = 4;
+let numOfCols = 4;
 
 // Player 1 starts has the 1st turn by default
 let turn = 1;
