@@ -41,6 +41,7 @@ h1 {
     color: darkslategrey;
     margin-top: 32px;
     margin-bottom: 32px;
+    letter-spacing: -3px;
 }
 
 #board {
@@ -107,6 +108,8 @@ h1 {
 button {
     display: block;
     background-color: rgb(242, 87, 70);
+    border-top: 1px solid rgb(242, 87, 70);
+    border-left: 1px solid rgb(242, 87, 70);
     border-right: 4px solid rgb(206, 66, 51);
     border-bottom: 6px solid rgb(167, 58, 46);
     outline: none;

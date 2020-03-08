@@ -10,8 +10,10 @@
 
 /*----- constants -----*/
 
+const FIRST_TURN = 1;
+
 // Player objects
-const Players = {
+const PLAYERS = {
     '1': {
         name: 'Player 1',
         colorPrimary: '#ff5233', // For edge colors and player scores
@@ -48,7 +50,7 @@ class Box {
         this.bottom = new Edge();
     }
 
-    // Checks and sets the completion state of the box
+    // Checks and the completion state of the box
     checkCompletion() {
         if (this.left.clickedBy != undefined && this.top.clickedBy != undefined && 
             this.right.clickedBy != undefined && this.bottom.clickedBy != undefined) {
@@ -89,19 +91,19 @@ let board = [];
 let numOfRows = 4;
 let numOfCols = 4;
 
-// Player 1 starts has the 1st turn by default
-let turn = 1;
+// Player 1 starts the game by default
+let turn = FIRST_TURN;
 
 /*----- Cached element references -----*/
 
 let boardEl = document.getElementById('board');
 let player1ScoreEl = document.getElementById('player-1-score');
 let player2ScoreEl = document.getElementById('player-2-score');
+
 let rowSizeSelectEl = document.getElementById('row-select');
 let colSizeSelectEl = document.getElementById('col-select');
 let resetButtonEl = document.querySelector('button');
 
-// Modal references
 let modal = document.getElementById('myModal');
 let closeEl = document.getElementsByClassName("close")[0];
 let modalPEl = document.querySelector('p');
@@ -109,12 +111,12 @@ let modalPEl = document.querySelector('p');
 /*----- Event listeners -----*/
 
 // Listen for any click on the board and use event delegation to understand which component was clicked
-boardEl.addEventListener('click', handleBoardClick);
+boardEl.addEventListener('click', onBoardClick);
 
 // Click listener for the reset button
 resetButtonEl.addEventListener('click', function() {
     // Clear the game state before calling init() to avoid pushing duplicate elements on to the board
-    clearState();
+    setDefaultState();
 
     // Call init() after clearing the game's state
     init();
@@ -126,10 +128,9 @@ resetButtonEl.addEventListener('click', function() {
 // Initalises a game
 function init() {
     renderScores();
-  
     renderBoardDimensions();
 
-    // Build board of box objects (2D array containing rows of box objects)
+    // Build 2D array containing rows of box objects
     let boxId = 0;
     for (let rowId = 0; rowId < numOfRows; rowId++) {
         let row = [];
@@ -142,14 +143,14 @@ function init() {
     intitBoardEl();
 }
 
-// Clears all the game's state
-function clearState() {
+// Resets all the games' state variables back to their default state
+function setDefaultState() {
     // Clear the scores
-    Players[1].score = 0;
-    Players[-1].score = 0;
+    PLAYERS[1].score = 0;
+    PLAYERS[-1].score = 0;
 
     // Reset who's turn it is
-    turn = 1;
+    turn = firstTurn;
 
     // Clear the board array
     while(board.length > 0) {
@@ -233,7 +234,7 @@ window.onclick = function(event) {
 }
 
 // When the user clicks an edge, update the game state and render the changes
-function handleBoardClick(evt) {
+function onBoardClick(evt) {
     // Get which element was clicked
     const targetEl = evt.target;
 
@@ -269,13 +270,13 @@ function handleBoardClick(evt) {
     }
 
     // The score before querying all the boxes
-    let scoreSumBefore = Players[1].score + Players[-1].score;
+    let scoreSumBefore = PLAYERS[1].score + PLAYERS[-1].score;
 
     // For every box, set which player completed it and update the scores
     setAllBoxCompletedByStates();
 
     // The score after querying all the boxes
-    let scoreSumAfter = Players[1].score + Players[-1].score;
+    let scoreSumAfter = PLAYERS[1].score + PLAYERS[-1].score;
     
     // Change which player's turn it is only if the scores don't change (ie. Nobody completed a box)
     if (scoreSumBefore === scoreSumAfter) {
@@ -305,13 +306,13 @@ function setAllBoxCompletedByStates() {
             }
         }
     }
-    Players[1].score = player1Score;
-    Players[-1].score = player2Score;
+    PLAYERS[1].score = player1Score;
+    PLAYERS[-1].score = player2Score;
 }
 
 // Checks if the game is complete
 function isGameComplete() {
-    if (numOfRows * numOfCols === Players[1].score + Players[-1].score) {
+    if (numOfRows * numOfCols === PLAYERS[1].score + PLAYERS[-1].score) {
         return true;
     } else {
         return false;
@@ -368,7 +369,7 @@ function render(clickedEdge) {
 // Renders the edge colour according to which player clicked it
 function renderEdgeColor(edgeObj) {
     if (edgeObj != undefined) {
-        edgeObj.edgeEl.style.backgroundColor = Players[edgeObj.clickedBy].colorPrimary;
+        edgeObj.edgeEl.style.backgroundColor = PLAYERS[edgeObj.clickedBy].colorPrimary;
     }
 }
 
@@ -378,7 +379,7 @@ function renderBoxColor() {
         for (let colId = 0; colId < numOfCols; colId++) {
             let box = board[rowId][colId];
             if (box.checkCompletion()) {
-                box.squareEl.style.backgroundColor = Players[box.completedBy].colorSecondary;
+                box.squareEl.style.backgroundColor = PLAYERS[box.completedBy].colorSecondary;
             }
         }
     }
@@ -386,8 +387,8 @@ function renderBoxColor() {
 
 // Renders the score numbers on for the players' scores
 function renderScores() {
-    player1ScoreEl.innerText = `${Players[1].score}`;
-    player2ScoreEl.innerText = `${Players[-1].score}`;
+    player1ScoreEl.innerText = `${PLAYERS[1].score}`;
+    player2ScoreEl.innerText = `${PLAYERS[-1].score}`;
     if (turn === 1) {
         player1ScoreEl.parentNode.classList.add("active");
         player2ScoreEl.parentNode.classList.remove("active");
@@ -399,14 +400,14 @@ function renderScores() {
 
 // Renders the game completion modal
 function renderGameComplete() {
-    if (numOfRows * numOfCols === Players[1].score + Players[-1].score) {
+    if (numOfRows * numOfCols === PLAYERS[1].score + PLAYERS[-1].score) {
         let gameWinnerString;
-        if (Players[1].score === Players[-1].score) {
+        if (PLAYERS[1].score === PLAYERS[-1].score) {
             gameWinnerString = "It's a tie!"
-        } else if (Players[1].score > Players[-1].score) {
-            gameWinnerString = `${Players[1].name} wins!`;
+        } else if (PLAYERS[1].score > PLAYERS[-1].score) {
+            gameWinnerString = `${PLAYERS[1].name} wins!`;
         } else {
-            gameWinnerString = `${Players[-1].name} wins!`;
+            gameWinnerString = `${PLAYERS[-1].name} wins!`;
         }
         // Set the game completion message and reveal the modal
         modalPEl.innerText = gameWinnerString;
