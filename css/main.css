@@ -93,14 +93,14 @@ h1 {
 }
 
 /* The player name text */
-#player-1-score + h2, #player-2-score + h2 {
+#player-1-name, #player-2-name {
     font-size: 40px;
     margin-top: 0px;
 }
 
 #vs {
     font-size: 40px;
-    font-weight: 600;
+    font-weight: 900;
     color: darkslategrey;
 }
 
