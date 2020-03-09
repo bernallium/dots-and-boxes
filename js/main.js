@@ -1,12 +1,10 @@
 // DOTS & BOXES
-// –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-//  The game board is composed of rows and columns of boxes.
-//  Boxes are composed of four edges. Adjacent boxes share a reference to the same edge.
-//  Two players take turns clicking box edges. 
-//  The player who clicks the fourth edge surrounding any given box completes that box.
-//  When a player completes a box, that player gets another turn to click another edge.
-//  Once the board is full, the player that has completed the most number of boxes wins.
-// ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+// –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––ß
+// The game board is composed of rows and columns of boxes.
+// Boxes are composed of four edges. Adjacent boxes share a reference to the same edge.
+// Two players take turns clicking box edges. The player who clicks the fourth edge surrounding any given 1 × 1 box completes that
+// box and takes another turn. When all the boxes are complete, the game ends and the player who has the most boxes wins the game.
+// –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 /*----- Classes -----*/
 
