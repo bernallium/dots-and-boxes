@@ -7,10 +7,45 @@ body {
     background: whitesmoke;
     font-family: 'Courier New', Courier, monospace;
     flex-shrink: 0;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 275px;
+}
+
+#bottom-info {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: whitesmoke;
+    /* background: rgba(236, 236, 236); */
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    box-shadow: 0px 0px 18px 0px rgb(230, 230, 230);
+}
+
+#scores {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 1000px;
+    margin
+}
+
+#bar-button {
+    display: none;
 }
 
 #play-area {
     flex-grow: 100;
+}
+
+#play-area h1 {
+    display: none;
 }
 
 #board {
@@ -22,22 +57,16 @@ body {
     background: lightgrey;
     border-right: 6px solid rgb(180, 180, 180);
     border-bottom: 8px solid rgb(160, 160, 160);
-    width: 420px;
-    height: 420px;
+    width: 500px;
+    height: 500px;
     padding: 12px;
-    margin: 0 auto;
+    margin: 50px auto;
 }
 
 aside {
     margin-left: 50px;
-    margin-right: 50px;
     flex-grow: 1;
     align-self: flex-start;
-}
-
-aside h2 {
-    color: darkslategrey;
-    font-size: 36px;
 }
 
 aside p {
@@ -50,7 +79,7 @@ aside p {
 }
 
 h1 {
-    font-size: 60px;
+    font-size: 4.5vw;
     letter-spacing: -1.5px;
     color: darkslategrey;
     margin-top: 32px;
@@ -64,6 +93,7 @@ h1 {
     color: darkslategrey;
     opacity: 0.3;
     transition: all 0.2s linear;
+    margin: 10px;
 
 }
 
@@ -96,7 +126,7 @@ h1 {
 }
 
 #vs {
-    font-size: 40px;
+    font-size: 30px;
     font-weight: 900;
     color: darkslategrey;
     margin-left: 35px;
@@ -105,7 +135,6 @@ h1 {
 
 /* NEW GAME button */
 button {
-    position: absolute;
     display: block;
     background-color: rgb(242, 87, 70);
     border-top: 1px solid rgb(242, 87, 70);
@@ -114,13 +143,13 @@ button {
     border-bottom: 6px solid rgb(167, 58, 46);
     outline: none;
     cursor: pointer;
-    text-transform: uppercase;
-    font-size: 18px;
-    padding: 24px;
-    margin-top: 56px;
+    font-size: 20px;
+    padding: 20px;
+    margin-top: 40px;
     border-radius: 12px;
     color: white;
     transition: all 0.2s linear;
+    font-family: Courier;
 }
 
 button:focus {
@@ -174,18 +203,31 @@ button:hover {
     justify-content: center;
 }
 
-@media only screen and (max-width: 1000px) { /* mobile */
+@media only screen and (max-width: 1100px) { /* mobile */
     body {
         flex-direction: column;
     }
 
+    #play-area h1 {
+        display: block;
+        text-align: center;
+    }
+
+    aside h1 {
+        display: none;
+    }
+
     h1 {
-        font-size: 10vw;
+        font-size: 9vw;
     }
 
     .pencil-top, .pencil-body, .pencil-bottom {
         display: none;
     }
+
+    aside {
+        margin-left: 0;
+    } 
 
     aside p {
         min-width: initial;
@@ -193,8 +235,33 @@ button:hover {
     }
 
     #board {
-        height: 300px;
-        width: 300px;
+        max-height: 450px;
+        max-width: 450px;
+        height: 60vw;
+        width: 60vw;
+    }
+
+    button {
+        order: 0;
+    }
+
+    .select-css {
+        display: block;
+    }
+
+    #main-button {
+        display: none;
+    }
+
+    #bar-button {
+        font-size: 16px;
+        display: inline;
+        margin: 15px;
+        min-width: 125px;
+    }
+
+    .score-board {
+        font-size: 2vw;
     }
 }
 
@@ -254,7 +321,7 @@ button:hover {
 
 label {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     color: darkslategrey;
     margin-right: 10px;
@@ -262,7 +329,7 @@ label {
 
 .select-css {
 	display: inline-block;
-	font-size: 16px;
+	font-size: 18px;
 	font-family: 'Courier New', Courier, monospace;
 	font-weight: 700;
 	color: #444;
@@ -318,12 +385,12 @@ label {
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
     border-bottom: 15px solid lightgrey;
-    margin-top: 100px;
+    
 }
 
 .pencil-body {
     flex-shrink: 3;
-    height: 400px;
+    height: 450px;
     background: #FFC334;
     border-left: 10px solid #FFD268;
     border-right: 10px solid #E2AF38;
@@ -346,16 +413,6 @@ label {
 
 /* ──────────────────────────────────────────────────────────────────────────────── */
 
-#bottom-info {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background: rgb(236, 236, 236);
-    color: white;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 3;
+#row-select, #col-select {
+    margin-bottom: 10px;
 }

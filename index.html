@@ -17,6 +17,7 @@
                 <p></p>
             </div>
         </div>
+        <h1 id="play-header"    >Dots & Boxes</h1>
         <section id="board">
         </section>
     </section>
@@ -26,7 +27,7 @@
         <div class="pencil-bottom"></div>
     </div>
     <aside>
-        <h1>Dots & Boxes</h1>
+        <h1 id="aside-header">Dots & Boxes</h1>
         <p>Players take turns joining two horizontally or vertically adjacent dots with a line. 
             The player that completes the fourth side of a 1 × 1 box gets a point and takes another turn. 
             When all the boxes are complete, the game ends and the player who has the most boxes wins the game.
@@ -58,18 +59,21 @@
             <option value="9">9</option>
             <option value="10">10</option>
         </select>
-        <button>New game</button>
+        <button id="main-button">New game</button>
     </aside>
     <div id="bottom-info">
-        <div class="score-board">
-            <h2 id="player-1-score"></h2>
-            <h2 id="player-1-name"></h2>
+        <div id='scores'>
+            <div class="score-board">
+                <h2 id="player-1-score"></h2>
+                <h2 id="player-1-name"></h2>
+            </div>
+            <div id="vs">VS</div>
+            <div class="score-board">
+                <h2 id="player-2-score"></h2>
+                <h2 id="player-2-name"></h2>
+            </div>
         </div>
-        <div id="vs">VS</div>
-        <div class="score-board">
-            <h2 id="player-2-score"></h2>
-            <h2 id="player-2-name"></h2>
-        </div> 
+        <button id="bar-button">New Game</button>
     </div>
 </body>
 </html>
