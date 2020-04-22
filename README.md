@@ -1,8 +1,6 @@
 # Dots & Boxes
 
-[<img src="images/dots-and-boxes-window.png" width="500x">](https://bernallium.github.io/dots-and-boxes/)
-
-[<img src="images/dots-and-boxes-mobile.png" height="450x">](https://bernallium.github.io/dots-and-boxes/)
+[<img src="images/dots-and-boxes-window.png" width="700x">](https://bernallium.github.io/dots-and-boxes/) [<img src="images/dots-and-boxes-mobile.png" height="600x">](https://bernallium.github.io/dots-and-boxes/)
 
 [Click here to play!](https://bernallium.github.io/dots-and-boxes/)
 
