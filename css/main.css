@@ -22,7 +22,7 @@ body {
     background: whitesmoke;
     text-align: center;
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
     z-index: 3;
     box-shadow: 0px 0px 18px 0px rgb(230, 230, 230);
@@ -65,6 +65,7 @@ body {
     margin-top: 0;
     margin-bottom: 0;
     font-size: 30px;
+    white-space: nowrap;
 }
 
 #vs {
@@ -80,7 +81,7 @@ body {
 /* ──────────────────────────────────────────────────────────────────────────────── */
 
 #play-area {
-    flex-grow: 100;
+    flex-basis: 100vw;
 }
 
 #play-area h1 {
@@ -118,12 +119,13 @@ aside p {
 }
 
 h1 {
-    font-size: 4.2vw;
+    font-size: 8vw;
     letter-spacing: -1.5px;
     color: darkslategrey;
     margin-top: 32px;
     margin-bottom: 32px;
-    letter-spacing: -3px;
+    letter-spacing: -5px;
+    line-height: 80%;
 }
 
 .active {
@@ -149,6 +151,7 @@ button {
     transition: all 0.2s linear;
     font-family: Courier;
     text-transform: capitalize;
+    white-space: nowrap;
 }
 
 button:focus {
@@ -229,6 +232,10 @@ button:hover {
         max-width: 1000px;
     }
 
+    #play-area {
+        flex-basis: initial;
+    }
+    
     #board {
         max-height: 450px;
         max-width: 450px;
@@ -264,7 +271,6 @@ button:hover {
     #player-1-name, 
     #player-2-name {
         font-size: 18px;
-        white-space: nowrap;
     }
 
     #vs {
@@ -272,11 +278,7 @@ button:hover {
     }
 
     #bar-button {
-        font-size: 15px;
-        display: inline;
-        margin: 15px;
-        min-width: 100px;
-        padding: 20px 0;
+        font-size: 18px;
     }
 }
 
@@ -393,7 +395,10 @@ label {
 .pencil {
     margin-left: 50px;
     display: flex;
+    align-content: flex-start;
     flex-direction: column;
+    align-self: flex-start;
+    margin-top: 20px;
 }
 
 .pencil-top {
@@ -402,12 +407,11 @@ label {
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
     border-bottom: 15px solid lightgrey;
-    
 }
 
 .pencil-body {
     flex-shrink: 3;
-    height: 450px;
+    height: 70vh;
     background: #FFC334;
     border-left: 10px solid #FFD268;
     border-right: 10px solid #E2AF38;
