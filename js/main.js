@@ -327,7 +327,6 @@ function setAllBoxCompletedByStates() {
 
 // Checks if the game is complete
 function isGameComplete() {
-    winnerId = 1;return true;
     if (numOfRows * numOfCols === PLAYERS[1].score + PLAYERS[-1].score) {
         if (PLAYERS[1].score === PLAYERS[-1].score) {
             winnerId = 0;
