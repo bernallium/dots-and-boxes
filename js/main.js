@@ -102,7 +102,8 @@ let player2NameEl = document.getElementById('player-2-name');
 
 let rowSizeSelectEl = document.getElementById('row-select');
 let colSizeSelectEl = document.getElementById('col-select');
-let resetButtonEl = document.querySelector('button');
+let mainButtonEl = document.getElementById('main-button');
+let barButtonEl = document.getElementById('bar-button');
 
 let modal = document.getElementById('myModal');
 let closeEl = document.getElementsByClassName("close")[0];
@@ -114,7 +115,15 @@ let modalPEl = document.querySelector('p');
 boardEl.addEventListener('click', onBoardClick);
 
 // Click listener for the reset button
-resetButtonEl.addEventListener('click', function() {
+mainButtonEl.addEventListener('click', function() {
+    // Clear the game state before calling init() to avoid pushing duplicate elements on to the board
+    clearGameState();
+    // Call init() after clearing the game's state
+    init(); 
+    render();
+});
+
+barButtonEl.addEventListener('click', function() {
     // Clear the game state before calling init() to avoid pushing duplicate elements on to the board
     clearGameState();
     // Call init() after clearing the game's state
@@ -318,6 +327,7 @@ function setAllBoxCompletedByStates() {
 
 // Checks if the game is complete
 function isGameComplete() {
+    winnerId = 1;return true;
     if (numOfRows * numOfCols === PLAYERS[1].score + PLAYERS[-1].score) {
         if (PLAYERS[1].score === PLAYERS[-1].score) {
             winnerId = 0;
