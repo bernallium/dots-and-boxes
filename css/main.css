@@ -411,7 +411,7 @@ label {
 
 .pencil-body {
     flex-shrink: 3;
-    height: 70vh;
+    height: 60vh;
     background: #FFC334;
     border-left: 10px solid #FFD268;
     border-right: 10px solid #E2AF38;
