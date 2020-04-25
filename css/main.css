@@ -222,7 +222,7 @@ button:hover {
     }
 
     h1 {
-        font-size:calc(30px + 6vw);
+        font-size:calc(20px + 6vw);
     }
 
     .pencil-top, .pencil-body, .pencil-bottom {
