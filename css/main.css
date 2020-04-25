@@ -5,8 +5,8 @@ body {
     background: whitesmoke;
     font-family: 'Courier New', Courier, monospace;
     flex-shrink: 0;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
     padding-bottom: 275px;
 }
 
@@ -358,7 +358,7 @@ label {
 
 .selector {
     display: inline-block;
-    margin: 10px 0;
+    margin: 10px 10px 10px 0;
 }
 
 .select-css {
