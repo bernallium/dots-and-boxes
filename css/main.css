@@ -100,7 +100,15 @@ body {
     width: 500px;
     height: 500px;
     padding: 12px;
-    margin: 50px auto;
+    margin: 30px auto;
+}
+
+#turn-display {
+    font-size:calc(18px + 2vw); /* dynamic + static */
+    font-size: 30px;
+    color: darkslategrey;
+    text-align: center;
+    margin: 0;
 }
 
 aside {
@@ -111,21 +119,19 @@ aside {
 
 aside p {
     font-family: Inter, Arial, Helvetica, sans-serif;
-    text-align: justify;
     color: darkslategrey;
     min-width: 200px;
     max-width: 400px;
-    padding-bottom: 30px;
 }
 
 h1 {
-    font-size: 8vw;
-    letter-spacing: -1.5px;
+    /* font-size: 8vw; */
+    font-size:calc(7px + 6vw); /* dynamic + static */
     color: darkslategrey;
     margin-top: 32px;
     margin-bottom: 32px;
     letter-spacing: -5px;
-    line-height: 80%;
+    line-height: 75%;
 }
 
 .active {
@@ -145,7 +151,7 @@ button {
     cursor: pointer;
     font-size: 20px;
     padding: 20px;
-    margin-top: 40px;
+    margin-top: 20px;
     border-radius: 12px;
     color: white;
     transition: all 0.2s linear;
@@ -201,7 +207,7 @@ button:hover {
 
 /* ──────────────────────────────────────────────────────────────────────────────── */
 
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: 1000px) {
     body {
         flex-direction: column;
     }
@@ -216,7 +222,7 @@ button:hover {
     }
 
     h1 {
-        font-size: 9vw;
+        font-size:calc(30px + 6vw);
     }
 
     .pencil-top, .pencil-body, .pencil-bottom {
@@ -237,10 +243,11 @@ button:hover {
     }
     
     #board {
-        max-height: 450px;
-        max-width: 450px;
-        height: 60vw;
-        width: 60vw;
+        max-height: 500px;
+        max-width: 500px;
+        height: 70vw;
+        width: 70vw;
+    
     }
 
     .select-css {
@@ -260,6 +267,10 @@ button:hover {
 }
 
 @media only screen and (max-width: 800px) {
+    #turn-display {
+        font-size: 25px;
+    }
+    
     #player-vs-player {
         justify-content: flex-start;
     }
@@ -343,11 +354,15 @@ label {
     font-size: 18px;
     font-weight: 600;
     color: darkslategrey;
-    margin-right: 10px;
+}
+
+.selector {
+    display: inline-block;
+    margin: 10px 0;
 }
 
 .select-css {
-	display: inline-block;
+	display: inline;
 	font-size: 14px;
 	font-family: 'Courier New', Courier, monospace;
 	font-weight: 700;
@@ -357,7 +372,6 @@ label {
 	width: auto;
 	max-width: 100%;
 	box-sizing: border-box;
-	margin: 0 10px 0 0;
 	border: 1px solid #aaa;
 	box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
 	border-radius: .5em;
@@ -433,7 +447,3 @@ label {
 }
 
 /* ──────────────────────────────────────────────────────────────────────────────── */
-
-#row-select, #col-select {
-    margin-bottom: 10px;
-}

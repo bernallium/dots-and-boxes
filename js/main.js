@@ -95,6 +95,7 @@ let winnerId; // 1 => Player 1, -1 => Player 2, 0 => Tie
 /*----- Cached element references -----*/
 
 let boardEl = document.getElementById('board');
+let turnDisplayEl = document.getElementById('turn-display');
 let player1ScoreEl = document.getElementById('player-1-score');
 let player2ScoreEl = document.getElementById('player-2-score');
 let player1NameEl = document.getElementById('player-1-name');
@@ -384,6 +385,7 @@ function render(clickedEdge) {
     renderEdgeColor(clickedEdge);
     renderBoxColor();
     renderScores();
+    renderTurn();
     renderGameComplete();
 }
 
@@ -417,6 +419,10 @@ function renderScores() {
         player1ScoreEl.parentNode.classList.remove("active");
         player2ScoreEl.parentNode.classList.add("active");
     }
+}
+
+function renderTurn() {
+    turnDisplayEl.innerText = `${PLAYERS[turn].name}'s turn`;
 }
 
 // Renders the game completion modal

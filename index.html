@@ -20,6 +20,7 @@
         <h1 id="play-header">Dots & Boxes</h1>
         <section id="board">
         </section>
+        <h2 id="turn-display">Player 1's turn</h2>
     </section>
     <div class="pencil">
         <div class="pencil-top"></div>
@@ -32,32 +33,36 @@
             The player that completes the fourth side of a 1 × 1 box gets a point and takes another turn. 
             When all the boxes are complete, the game ends and the player who has the most boxes wins the game.
         </p>
-        <label for="row-select">Rows</label>
-        <select id="row-select" class="select-css">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
-        <label for="col-select">Columns</label>
-        <select id="col-select" class="select-css">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
+        <div class="selector">
+            <label for="row-select">Rows</label>
+            <select id="row-select" class="select-css">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+        <div class="selector">
+            <label for="col-select">Columns</label>
+            <select id="col-select" class="select-css">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
         <button id="main-button">New game</button>
     </aside>
     <div id="bottom-bar">
