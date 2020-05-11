@@ -19,4 +19,4 @@ I wanted to create a simple game where the layout's DOM elements are generated d
 
 * Add a *quick-start* mode where game will start with a pre-filled board
 * Add a computer player that users can play against
-* Refactor to leverage the frontend library
+* Refactor to leverage the React.js library
