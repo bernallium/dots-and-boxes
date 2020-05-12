@@ -4,19 +4,24 @@
 
 ### [Click here to play!](https://bernallium.github.io/dots-and-boxes/)
 
-<img src="images/dots-and-boxes-window.png" width="1000">
+<img src="images/dots-and-boxes-window.png" width=1000>
+
+<br/><br/>
 
 <img src="images/game-demo.gif" width=800>
 
 Short demo of a typical game
 
+<br/><br/>
+
 <img src="images/dynamic-board-demo.gif" width=800>
 
 Players can play on different board sizes (HTML elements are created at runtime)
 
-<img src="images/responsive-demo.gif" width=800>
+<br/><br/>
 
-<img src="images/dots-and-boxes-mobile.png" height=600">
+<img src="images/responsive-demo.gif" width=800>
+<img src="images/dots-and-boxes-mobile.png" height=600>
 
 Responsive design for different device sizes. Try it on mobile!
 
