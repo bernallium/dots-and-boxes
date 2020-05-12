@@ -4,7 +4,20 @@
 
 ### [Click here to play!](https://bernallium.github.io/dots-and-boxes/)
 
-[<img src="images/dots-and-boxes-window.png" width="1000x">](https://bernallium.github.io/dots-and-boxes/) [<img src="images/dots-and-boxes-mobile.png" height="700x">](https://bernallium.github.io/dots-and-boxes/)
+<img src="images/dots-and-boxes-window.png" width="1000">
+
+<img src="images/game-demo.gif" width=600>
+
+> Short demo of a typical game
+
+<img src="images/dynamic-board-demo.gif" width=600>
+
+> Users can the size of the board. HTML elements are created at runtime.
+
+<img src="images/responsive-demo.gif" width=600>
+<img src="images/dots-and-boxes-mobile.png" height="600">
+
+> Responsive design for different device sizes. Try it on mobile!
 
 ### Why did I create this game?
 I wanted to create a simple game where the layout's DOM elements are generated dynamically using JavaScript, to allow for various board game sizes without. This constraint forced me to think about the necessary data structures to iterate over, so that the game logic and layout were cohesive. The result was a very minimal HTML file and dynamic board sizes based on user entered row and column numbers. Also, I wanted to implement various aspects of responsive design so that the game could be played on smaller devices.  
