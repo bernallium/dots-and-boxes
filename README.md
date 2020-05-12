@@ -22,7 +22,7 @@ Players can play on different board sizes (HTML elements are created at runtime)
 
 <img src="images/responsive-demo.gif" width=800>
 
-Responsive design for different device sizes.
+Responsive design for different device sizes
 
 <br/><br/>
 
@@ -31,7 +31,7 @@ Responsive design for different device sizes.
 Try it on mobile!
 
 ### Why did I create this game?
-I wanted to create a simple game where the layout's DOM elements are generated dynamically using JavaScript, to allow for various board game sizes without. This constraint forced me to think about the necessary data structures to iterate over, so that the game logic and layout were cohesive. The result was a very minimal HTML file and dynamic board sizes based on user entered row and column numbers. Also, I wanted to implement various aspects of responsive design so that the game could be played on smaller devices.  
+I wanted to create a simple game where the layout's HTML elements are generated dynamically using JavaScript, to allow for various board game sizes without having to hardcode every size permutation. This constraint forced me to think about the necessary data structures to iterate over, so that the game logic and layout were cohesive. The result was a very minimal HTML file and dynamic board sizes based on user entered row and column numbers. Also, I wanted to implement various aspects of responsive design so that the game could be played on smaller devices.  
 
 ## Built With 👨‍💻
 
